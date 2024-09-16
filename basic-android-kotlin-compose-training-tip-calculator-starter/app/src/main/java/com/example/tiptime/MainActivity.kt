@@ -20,6 +20,7 @@ import android.widget.Switch
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +34,9 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -54,6 +57,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Icon
+import androidx.compose.ui.res.painterResource
 
 var amountInput: MutableState<String> = mutableStateOf("0")
 class MainActivity : ComponentActivity() {
@@ -75,6 +80,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     keyboardOptions: KeyboardOptions,
     value: String,
     onValueChange: (String) -> Unit,
@@ -82,6 +88,7 @@ fun EditNumberField(
 ) {
     TextField(
         value = value,
+        leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         onValueChange = onValueChange,
         modifier = modifier ,
         singleLine = true,
@@ -127,6 +134,7 @@ fun TipTimeLayout() {
     Column(
         modifier = Modifier
             .statusBarsPadding()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 40.dp)
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -144,6 +152,7 @@ fun TipTimeLayout() {
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
+            leadingIcon = R.drawable.money,
             value = amountInput,
             onValueChange = { amountInput = it },
             modifier = Modifier
@@ -156,6 +165,7 @@ fun TipTimeLayout() {
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
+            leadingIcon = R.drawable.percent,
             value = tipInput,
             onValueChange = {tipInput = it },
             modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth()
