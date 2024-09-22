@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.View
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -15,7 +16,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import com.example.woof.R
+import java.time.format.TextStyle
+
+val AbrilFatface = FontFamily(
+    Font(R.font.abril_fatface_regular)
+)
+
+val Montserrat = FontFamily(
+    Font(R.font.montserrat_regular),
+    Font(R.font.montserrat_bold, FontWeight.Bold)
+)
+
+
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -107,7 +125,28 @@ fun WoofTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = Shapes,
-        typography = Typography,
+        typography = Typography(
+            displayLarge = androidx.compose.ui.text.TextStyle(
+                fontFamily = AbrilFatface,
+                fontWeight = FontWeight.Normal,
+                fontSize = 36.sp
+            ),
+            displayMedium = androidx.compose.ui.text.TextStyle(
+                fontFamily = Montserrat,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            ),
+            labelSmall = androidx.compose.ui.text.TextStyle(
+                fontFamily = Montserrat,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp
+            ),
+            bodyLarge = androidx.compose.ui.text.TextStyle(
+                fontFamily = Montserrat,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp
+            )
+        ),
         content = content
     )
 }
